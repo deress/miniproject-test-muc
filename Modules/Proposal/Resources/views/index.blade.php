@@ -51,7 +51,7 @@
                         </div>
                     @else
                         <div class="alert alert-info">
-                            No employees found.
+                            No proposals found.
                         </div>
                     @endif
                 </div>
