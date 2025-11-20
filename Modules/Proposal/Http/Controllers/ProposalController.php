@@ -37,7 +37,14 @@ class ProposalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'number' => 'required|string',
+            'year' => 'required|integer',
+            'status' => 'required|in:pending,agreed,rejected',
+            'description' => 'required|string',
+        ]);
+        ProposalModel::create($validatedData);
+        return redirect()->route('proposal.index')->with('success', 'Proposal berhasil ditambahkan');
     }
 
     /**
