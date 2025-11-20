@@ -2,11 +2,12 @@
 
 namespace Modules\ServiceUsed\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use App\Models\marketing\ProposalModel;
 use App\Models\marketing\ServiceusedModel;
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 
 class ServiceUsedController extends Controller
 {
@@ -40,7 +41,7 @@ class ServiceUsedController extends Controller
         $validatedData = $request->validate([
             'proposal_id' => 'required',
             'service_name' => 'required',
-            'status' => 'required|in:pending,agreed,rejected',
+            'status' => 'required|in:pending,ongoing,done',
         ]);
         ServiceusedModel::create($validatedData);
         return redirect()->route('serviceused.index')->with('success', 'Service baru berhasil ditambahkan');
@@ -63,7 +64,13 @@ class ServiceUsedController extends Controller
      */
     public function edit($id)
     {
-        return view('serviceused::edit');
+        $service = DB::connection('mysql_marketing')
+            ->table('serviceused')
+            ->where('id', $id)
+            ->first();
+        $proposals = ProposalModel::all();
+
+        return view('serviceused::edit', compact('service', 'proposals'));
     }
 
     /**
@@ -74,7 +81,13 @@ class ServiceUsedController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'proposal_id' => 'required',
+            'service_name' => 'required',
+            'status' => 'required|in:pending,ongoing,done',
+        ]);
+        ServiceusedModel::where('id', $id)->update($validatedData);
+        return redirect()->route('serviceused.index')->with('success', 'Service berhasil diubah');
     }
 
     /**
@@ -84,6 +97,7 @@ class ServiceUsedController extends Controller
      */
     public function destroy($id)
     {
-        //
+        ServiceusedModel::destroy($id);
+        return redirect()->route('serviceused.index')->with('success', 'Service berhasil dihapus');
     }
 }

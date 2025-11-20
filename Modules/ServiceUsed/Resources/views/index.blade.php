@@ -56,10 +56,18 @@
                                                         <span class="badge bg-success">Done</span>
                                                 @endswitch
                                             </td>
-                                            <td style="text-align: center">00:00</td>
+                                            <td style="text-align: center">{{ $service->total_timespent }}</td>
                                             <td style="text-align: center">
-                                                <a href="#" class="btn btn-sm btn-info">Edit</a>
-                                                <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                                                <a
+                                                    href="{{ route('serviceused.edit', $service->id) }}"class="btn btn-sm btn-info">Edit</a>
+                                                <form class="d-inline"
+                                                    onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?')"
+                                                    action="{{ route('serviceused.destroy', $service->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
