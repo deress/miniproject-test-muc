@@ -1,5 +1,6 @@
 {
     "Employees": true,
     "Proposal": true,
-    "ServiceUsed": true
+    "ServiceUsed": true,
+    "Timesheet": true
 }
