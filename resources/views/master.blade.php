@@ -86,10 +86,12 @@
                                             href="{{ url('proposal/index') }}">Proposal</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="">Serviceused</a>
+                                        <a class="nav-link {{ request()->is('serviceused*') ? 'active' : '' }}"
+                                            href="{{ url('serviceused/index') }}">Serviceused</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="">Timesheet</a>
+                                        <a class="nav-link {{ request()->is('timesheet*') ? 'active' : '' }}"
+                                            href={{ url('timesheet/index') }}>Timesheet</a>
                                     </li>
                                 </ul>
                             </div>

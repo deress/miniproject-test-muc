@@ -10,6 +10,15 @@ class ServiceusedModel extends Model
     use HasFactory;
     protected $connection = 'mysql_marketing';
     protected $table = 'serviceused'; // atau nama table yang sesuai
-    
-    protected $fillable = [];
+
+    protected $fillable = [
+        'proposal_id',
+        'service_name',
+        'status'
+    ];
+
+    public function proposal()
+    {
+        return $this->belongsTo(ProposalModel::class, 'proposal_id');
+    }
 }
