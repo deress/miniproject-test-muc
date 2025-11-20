@@ -75,7 +75,16 @@ class EmployeesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'status' => 'required'
+        ]);
+
+        $employee = EmployeesModel::findOrFail($id);
+
+        $employee->status = $request->status;
+        $employee->save();
+
+        return redirect()->route('employees.index');
     }
 
     /**

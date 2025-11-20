@@ -15,7 +15,7 @@
                     <!-- <a href="{{ url('employees/create') }}" class="btn btn-primary btn-sm">Add New Employee</a> -->
                 </div>
                 <div class="card-body">
-                    @if($employees->count() > 0)
+                    @if ($employees->count() > 0)
                         <div class="table-responsive">
                             <table class="table table-striped table-hover">
                                 <thead>
@@ -26,17 +26,34 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($employees as $employee)
+                                    @foreach ($employees as $employee)
                                         <tr>
                                             <td>{{ $employee->id }}</td>
                                             <td>{{ $employee->fullname ?? '-' }}</td>
-                                            <td>{{ $employee->status ?? '-' }}</td>
+                                            <td>
+                                                {{-- {{ $employee->status ?? '-' }} --}}
+                                                <form action="{{ route('employees.update', $employee->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <select name="status" class="form-control form-control-sm"
+                                                        style="cursor: pointer;" onchange="this.form.submit()">
+                                                        <option value="active"
+                                                            {{ $employee->status == 'active' ? 'selected' : '' }}>
+                                                            active
+                                                        </option>
+                                                        <option value="inactive"
+                                                            {{ $employee->status == 'inactive' ? 'selected' : '' }}>
+                                                            inactive
+                                                        </option>
+                                                    </select>
+                                                </form>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
-
                     @else
                         <div class="alert alert-info">
                             No employees found.
