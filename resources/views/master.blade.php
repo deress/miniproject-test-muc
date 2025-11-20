@@ -65,7 +65,7 @@
 
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a class="page-scroll active" href="{{ url('employees/index') }}">Employees</a>
                                     </li>
                                     <li class="nav-item">
@@ -74,9 +74,22 @@
                                     <li class="nav-item">
                                         <a class="page-scroll" href="">Serviceused</a>
                                     </li>
-
                                     <li class="nav-item">
                                         <a class="page-scroll" href="">Timesheet</a>
+                                    </li> --}}
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ request()->is('employees*') ? 'active' : '' }}"
+                                            href="{{ url('employees/index') }}">Employees</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ request()->is('proposal*') ? 'active' : '' }}"
+                                            href="{{ url('proposal/index') }}">Proposal</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="">Serviceused</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="">Timesheet</a>
                                     </li>
                                 </ul>
                             </div>
