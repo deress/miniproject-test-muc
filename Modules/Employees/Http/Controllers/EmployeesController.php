@@ -84,7 +84,7 @@ class EmployeesController extends Controller
         $employee->status = $request->status;
         $employee->save();
 
-        return redirect()->route('employees.index');
+        return redirect()->route('employees.index')->with('success', 'Status karyawan berhasil diubah');
     }
 
     /**
